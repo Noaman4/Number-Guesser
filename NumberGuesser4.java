@@ -133,6 +133,12 @@ public class NumberGuesser4 {
             pickNewRandom = true;
         } else {
             System.out.println("That's wrong");
+            // Display hint
+            if (guess < number) {
+                System.out.println("Try guessing higher.");
+            } else {
+                System.out.println("Try guessing lower.");
+            }
             strikes++;
             if (strikes >= maxStrikes) {
                 lose();
@@ -141,6 +147,7 @@ public class NumberGuesser4 {
         }
         saveState();
     }
+    
 
     private int strToNum(String message) {
         int guess = -1;
