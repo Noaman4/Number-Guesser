@@ -120,6 +120,9 @@ public class NumberGuesser4 {
         }
     }
 
+//ucid: ns87
+//Date: 02-12-2024
+
     private void processGuess(int guess) {
         if (guess < 0) {
             return;
@@ -130,6 +133,12 @@ public class NumberGuesser4 {
             pickNewRandom = true;
         } else {
             System.out.println("That's wrong");
+            // Display hint
+            if (guess < number) {
+                System.out.println("Try guessing higher.");
+            } else {
+                System.out.println("Try guessing lower.");
+            }
             strikes++;
             if (strikes >= maxStrikes) {
                 lose();
@@ -138,6 +147,8 @@ public class NumberGuesser4 {
         }
         saveState();
     }
+     
+    
 
     private int strToNum(String message) {
         int guess = -1;
@@ -151,10 +162,36 @@ public class NumberGuesser4 {
         return guess;
     }
 
+//ucid: ns87
+//Date: 02-12-2024
+
+    private void selectDifficulty(String difficulty) {
+        switch (difficulty.toLowerCase()) {
+            case "easy":
+                maxStrikes = 10;
+                break;
+            case "medium":
+                maxStrikes = 5;
+                break;
+            case "hard":
+                maxStrikes = 3;
+                break;
+            default:
+                System.out.println("Invalid difficulty. Defaulting to medium.");
+                maxStrikes = 5;
+        }
+    }
+
     public void start() {
         try (Scanner input = new Scanner(System.in);) {
             System.out.println("Welcome to NumberGuesser4.0");
             System.out.println("To exit, type the word 'quit'.");
+
+            // Add difficulty selection
+            System.out.println("Select difficulty: easy, medium, hard");
+            String difficulty = input.nextLine();
+            selectDifficulty(difficulty);
+
             loadState();
             do {
                 if (pickNewRandom) {
@@ -163,20 +200,12 @@ public class NumberGuesser4 {
                     pickNewRandom = false;
                 }
                 System.out.println("Type a number and press enter");
-                // we'll want to use a local variable here
-                // so we can feed it into multiple functions
                 String message = input.nextLine();
-                // early termination check
                 if (processCommands(message)) {
-                    // command handled; don't proceed with game logic
                     break;
                 }
-                // this is just to demonstrate we can return a value and pass it into another
-                // method
                 int guess = strToNum(message);
                 processGuess(guess);
-                // the following line is the same as the above two lines
-                // processGuess(getGuess(message));
             } while (true);
         } catch (Exception e) {
             System.out.println("An unexpected error occurred. Goodbye.");
