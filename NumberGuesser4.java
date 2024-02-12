@@ -1,6 +1,3 @@
-//ucid: ns87
-//Date: 02-12-2024
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -123,6 +120,9 @@ public class NumberGuesser4 {
         }
     }
 
+//ucid: ns87
+//Date: 02-12-2024
+
     private void processGuess(int guess) {
         if (guess < 0) {
             return;
@@ -147,7 +147,24 @@ public class NumberGuesser4 {
         }
         saveState();
     }
+     
     
+
+    private int strToNum(String message) {
+        int guess = -1;
+        try {
+            guess = Integer.parseInt(message.trim());
+        } catch (NumberFormatException e) {
+            System.out.println("You didn't enter a number, please try again");
+        } catch (Exception e2) {
+            System.out.println("Null message received");
+        }
+        return guess;
+    }
+
+//ucid: ns87
+//Date: 02-12-2024
+
     private void selectDifficulty(String difficulty) {
         switch (difficulty.toLowerCase()) {
             case "easy":
@@ -163,20 +180,6 @@ public class NumberGuesser4 {
                 System.out.println("Invalid difficulty. Defaulting to medium.");
                 maxStrikes = 5;
         }
-    }
-    
-    
-
-    private int strToNum(String message) {
-        int guess = -1;
-        try {
-            guess = Integer.parseInt(message.trim());
-        } catch (NumberFormatException e) {
-            System.out.println("You didn't enter a number, please try again");
-        } catch (Exception e2) {
-            System.out.println("Null message received");
-        }
-        return guess;
     }
 
     public void start() {
@@ -211,3 +214,9 @@ public class NumberGuesser4 {
         }
         System.out.println("Thanks for playing!");
     }
+
+    public static void main(String[] args) {
+        NumberGuesser4 ng = new NumberGuesser4();
+        ng.start();
+    }
+}
